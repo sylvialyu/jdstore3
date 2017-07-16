@@ -4,4 +4,10 @@ Rails.application.routes.draw do
 
 root 'welcome#index'
 
+resources :products
+
+namespace :admin do
+  resources :products
+end
+
 end
