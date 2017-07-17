@@ -1,11 +1,9 @@
 <div class="row">
   <div class="col-md-12">
 
-    <div class="pull-right">
-      <%= link_to("清空购物车", clean_carts_path, method: :delete, data: {confirm: "Are you sure?"}, style: "text-decoration: underline;") %>
-    </div>
+    <%= link_to("清除购物车", clean_carts_path, method: :delete, data: {confirm: "Are you sure?"}, style: "text-decoration: underline;", class: "pull-right")%>
 
-    <h2>购物车</h2>
+    <h2> 购物车 </h2>
 
     <table class="table table-bordered">
       <thead>
@@ -16,22 +14,30 @@
         </tr>
       </thead>
       <tbody>
+
         <% current_cart.cart_items.each do |cart_item| %>
-        <tr>
-          <td>
-            <%= link_to product_path(cart_item.product) do %>
-              <% if cart_item.product.image.present? %>
-                <%= image_tag(cart_item.product.image.thumb.url, class: "thumbnail") %>
-              <% else %>
-                <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+          <tr>
+            <td>
+              <%= link_to product_path(cart_item.product) do %>
+                <% if cart_item.product.image.present? %>
+                  <%= image_tag(cart_item.product.image.thumb.url, class: "thumbnail") %>
+                <% else %>
+                  <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+                <% end %>
               <% end %>
-            <% end %>
-          </td>
-          <td><%= link_to(cart_item.product.title, product_path(cart_item.product)) %></td>
-          <td><%= cart_item.product.price %></td>
-          <td><%= cart_item.product.quantity %></td>
-        </tr>
+            </td>
+            <td>
+              <%= link_to(cart_item.product.title, product_path(cart_item.product)) %>
+            </td>
+            <td>
+              <%= cart_item.product.price %>
+            </td>
+            <td>
+              <%= cart_item.quantity %>
+            </td>
+          </tr>
         <% end %>
+
       </tbody>
     </table>
 
@@ -39,15 +45,14 @@
 
     <div class="total clearfix">
       <span class="pull-right">
-        <span><%= render_cart_total_price(current_cart) %> RMB</span>
+         <span> <%= render_cart_total_price(current_cart) %> RMB </span>
       </span>
     </div>
 
     <hr>
 
     <div class="checkout clearfix">
-      <%= link_to("确认结账", "#", class: "btn btn-lg btn-danger pull-right") %>
+      <%= link_to("确认结账", "#", method: :post, class: "btn btn-lg btn-danger pull-right") %>
     </div>
-
   </div>
 </div>
